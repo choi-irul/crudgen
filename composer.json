@@ -15,7 +15,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Hammunima15\\Crudgen\\": "src/"
+            "Hammunima\\Crudgen\\": "src/"
         }
     }
 }
