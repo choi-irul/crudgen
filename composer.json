@@ -1,0 +1,21 @@
+{
+    "name": "Hammunima/crudgen",
+    "description": "CRUD Generator ..",
+    "type": "library",
+    "require": {
+        "php": "7.0",
+        "illuminate/support": "^5.7"
+    },
+    "authors": [
+        {
+            "name": "Choirul Ummah",
+            "email": "choirul.sea@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Hammunima15\\Crudgen\\": "src/"
+        }
+    }
+}

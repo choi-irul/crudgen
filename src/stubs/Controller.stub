@@ -1,0 +1,56 @@
+<?php
+namespace App\Http\Controllers\Sarpras;
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Datatables;
+use DB;
+use App\Models\{{modelName}};
+
+
+class {{modelName}}Controller extends Controller
+{
+	public function {{modelName}}Link($id = null){
+        if($id == null){
+            $var_{{modelName}} = null;
+        }else{
+            $var_{{modelName}} = {{modelName}}::find($id);
+        }
+        return view({{pathView}}, ['data' => $aa]);
+    }
+
+    public function {{modelName}}Data(){
+        $query_{{modelName}} = {{modelName}}::select('*');
+
+        return Datatables::of($query_{{modelName}})
+                        ->addColumn('menu', function($model) {
+                            $edit = '<a href="' . route("{{modelName}}-link", ['id' => $model->id]) . '"><button type="button" class="btn btn-sm btn-warning">Edit</button></a>';
+                            $hapus = '<button type="button" onclick="hapus(' . $model->id . ')" class="btn btn-sm btn-danger">Hapus</button>';
+                            return $edit . ' ' . $hapus;
+                        })
+                        ->rawColumns(['menu'])
+                        ->make(true);
+    }
+
+    public function {{modelName}}Simpan(Request $req){
+        if($req->tipe == 1){
+            $var_{{modelName}} = {{modelName}}::create($req->except(['tipe', 'id']));
+            $st = 1;
+        }else{
+            $var_{{modelName}} = {{modelName}}::find($req->id);
+            if($var_{{modelName}}){
+            	$var_{{modelName}}->update($req->except(['tipe', 'id']));
+	            $st = 1;
+            }else{
+            	$st = 9;
+            }
+        }
+        return redirect()->route('{{modelName}}-link')->with('status', $st);
+    }
+
+    public function {{modelName}}Hapus(Request $req){
+        {{modelName}}::find($req->id)->delete();
+        return response()->json(['hasil' => true]);
+    }
+}
