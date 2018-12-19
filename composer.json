@@ -1,5 +1,5 @@
 {
-    "name": "Hammunima/crudgen",
+    "name": "hammunima/crudgen",
     "description": "CRUD Generator ..",
     "type": "library",
     "require": {
