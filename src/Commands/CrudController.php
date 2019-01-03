@@ -1,6 +1,6 @@
 <?php
 
-namespace Hammunima\Crudgen\Commands;
+namespace Hammunima\Crudgen\Command;
 
 use Illuminate\Console\Command;
 use File;
@@ -21,7 +21,7 @@ class CrudController extends Command
      *
      * @var string
      */
-    protected $description = 'Generate File Controller';
+    protected $description = 'Generate File Controller...';
 
     protected $directory = '';
 
