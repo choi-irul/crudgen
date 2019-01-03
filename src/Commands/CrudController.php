@@ -54,36 +54,38 @@ class CrudController extends Command
         $this->getViewDirectory();
         $this->getDefaultNamespace();
 
-        $this->controller($name);
-
-        File::append(base_path('routes/web.php'), "Route::get('" . $name . "/{id?}', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Link', 'as' => '{$name}-link']);
-            Route::get('" . $name . "-data', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Data', 'as' => '{$name}-data']);
-            Route::post('" . $name . "-simpan', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Simpan', 'as' => '{$name}-simpan']);
-            Route::post('" . $name . "-hapus', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Hapus', 'as' => '{$name}-hapus']);
-            ");
-
+        $stub = $this->getStub('Controller');
+        
+        $this->replaceClassName($stub, ucfirst($name))
+            ->replaceFunctionName($stub, $name)
+            ->replaceVarName($stub, $name)
+            ->replacePathView($stub, $this->viewDir . $name)
+            ->createRoute($name)
+            ->createFile(ucfirst($name), $stub);
     }
 
     protected function getStub($type){
         return file_get_contents(resource_path("stubs/$type.stub"));
     }
 
-    protected function controller($name){
-        $controllerTemplate = str_replace([
-            '{{modelName}}',
-            '{{pathView}}',
-        ],
-        [
-            $name,
-            $this->viewDir . $name,
-        ],
-        $this->getStub('Controller'));
+    protected function createRoute($name){
+        File::append(base_path('routes/web.php'), "Route::get('" . $name . "/{id?}', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Link', 'as' => '{$name}-link']);
+            Route::get('" . $name . "-data', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Data', 'as' => '{$name}-data']);
+            Route::post('" . $name . "-simpan', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Simpan', 'as' => '{$name}-simpan']);
+            Route::post('" . $name . "-hapus', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Hapus', 'as' => '{$name}-hapus']);
+            ");
+        $this->Info('Route ' . ucfirst($name) . ' has been successfully added');
+        return $this;
+    }
 
+    protected function createFile($name, $template){
         if(!File::isDirectory(app_path("/Http/Controllers/{$this->controllerDir}"))){
             File::makeDirectory(app_path("/Http/Controllers/{$this->controllerDir}"), 0755, true);
         }
         
-        file_put_contents(app_path("/Http/Controllers/{$this->controllerDir}{$name}Controller.php"), $controllerTemplate);
+        file_put_contents(app_path("/Http/Controllers/{$this->controllerDir}{$name}Controller.php"), $template);
+
+        $this->Info('Controller ' . ucfirst($name) . ' has been successfully added');
     }
 
     protected function getControllerDirectory(){
@@ -104,6 +106,26 @@ class CrudController extends Command
         if($this->directory != ''){
             $this->defaultNamespace = $this->directory . '\\';
         }
+        return $this;
+    }
+
+    protected function replaceClassName(&$stub, $className){
+        $stub = str_replace('{{className}}', $className, $stub);
+        return $this;
+    }
+
+    protected function replaceFunctionName(&$stub, $functionName){
+        $stub = str_replace('{{functionName}}', $functionName, $stub);
+        return $this;
+    }
+    
+    protected function replaceVarName(&$stub, $varName){
+        $stub = str_replace('{{varName}}', $varName, $stub);
+        return $this;
+    }
+
+    protected function replacePathView(&$stub, $pathView){
+        $stub = str_replace('{{pathView}}', $pathView, $stub);
         return $this;
     }
 }

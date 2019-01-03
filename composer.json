@@ -1,6 +1,6 @@
 {
     "name": "hammunima15/crudgen",
-    "description": "CRUD Generator ..",
+    "description": "Laravel 5.5 CRUD Generator ..",
     "license": "MIT",
     "require": {
         "php": ">=7.0",
