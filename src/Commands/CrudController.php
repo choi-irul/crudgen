@@ -1,6 +1,6 @@
 <?php
 
-namespace Hammunima\Crudgen\Command;
+namespace Hammunima\Crudgen\Commands;
 
 use Illuminate\Console\Command;
 use File;
