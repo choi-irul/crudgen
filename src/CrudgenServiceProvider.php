@@ -27,7 +27,9 @@ class CrudgenServiceProvider extends ServiceProvider
     {
         $this->commands(
             'Hammunima\Crudgen\Commands\CrudController',
-            'Hammunima\Crudgen\Commands\CrudModel'
+            'Hammunima\Crudgen\Commands\CrudModel',
+            'Hammunima\Crudgen\Commands\CrudView',
+            'Hammunima\Crudgen\Commands\CrudGenerator'
             // 'Appzcoder\CrudGenerator\Commands\CrudControllerCommand',
             // 'Appzcoder\CrudGenerator\Commands\CrudModelCommand',
             // 'Appzcoder\CrudGenerator\Commands\CrudMigrationCommand',

@@ -1,0 +1,6 @@
+<div class="form-group row">
+	<label class="col-md-2 control-label">%1$s</label>
+	<div class="col-md-6">
+		%2$s
+	</div>
+</div>

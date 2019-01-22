@@ -1,0 +1,1 @@
+<input type="<<fieldType>>" class="form-control" required name="<<itemName>>" value="{{$data-><<itemName>> or ''}}">

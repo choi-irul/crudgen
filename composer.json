@@ -4,7 +4,8 @@
     "license": "MIT",
     "require": {
         "php": ">=7.0",
-        "illuminate/support": "~5.1"
+        "illuminate/support": "~5.1",
+        "yajra/laravel-datatables-oracle":"~8.0"
     },
     "authors": [
         {

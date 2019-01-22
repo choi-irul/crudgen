@@ -1,0 +1,1 @@
+<input type="<<fieldType>>" class="form-control m-input m-input--air" required name="<<itemName>>" value="{{$data-><<itemName>> or ''}}">

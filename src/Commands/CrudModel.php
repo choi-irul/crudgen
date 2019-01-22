@@ -1,6 +1,6 @@
 <?php
 
-namespace Hammunima\Crudgen\Commands;
+namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use File;
@@ -13,7 +13,7 @@ class CrudModel extends Command
      * @var string
      */
     protected $signature = 'generate:model 
-                            {name : name of controller}
+                            {name : name of model}
                             {--pk= : column of primary key}';
 
     /**

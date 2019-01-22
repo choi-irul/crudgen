@@ -1,0 +1,140 @@
+@extends('layout2')
+@section('title')
+	Gedung | {{env('APP_NAME')}}
+@endsection
+@section('content')
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+	<!-- BEGIN: Subheader -->
+	<div class="m-subheader ">
+		<div class="d-flex align-items-center">
+			<div class="mr-auto">
+				<h3 class="m-subheader__title m-subheader__title--separator">
+					Master <<className>>
+				</h3>
+			</div>
+		</div>
+	</div>
+	<!-- END: Subheader -->
+	<div class="m-content">
+		<div class="row">
+			<div class="col-12">
+				<div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi {{($data == null) ? '' : 'm--hide'}}" id="data">
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h2 class="m-portlet__head-label m-portlet__head-label--accent">
+									<span>
+										Data <<className>>
+									</span>
+								</h2>
+							</div>
+						</div>
+					</div>
+					<div class="m-portlet__body">
+						<div class="m-section" id="data-kategori">
+							@if(Session::has('status') && Session::get('status') == 9)
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+								<strong>
+									Gagal!
+								</strong>
+								Penyimpanan tidak berhasil....
+							</div>
+							@endif
+							<div class="m-section__content">
+								<button type="button" id="tambah" class="btn btn-outline-info">Tambah</button>
+								<br><br>
+								<table class="table table-bordered table-hover m-table" id="tabel">
+									<thead>
+										<tr>
+											<<tableColumn>>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi {{($data == null) ? 'm--hide' : ''}}" id="form">
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h2 class="m-portlet__head-label m-portlet__head-label--focus">
+									<span>
+										Form <<className>>
+									</span>
+								</h2>
+							</div>
+						</div>
+					</div>
+					<div class="m-portlet__body">
+						<div class="m-section" id="data-kategori">
+							<div class="m-section__content">
+								<form class="m-form m-form--fit m-form--label-align-right" method="post" action="{{route('<<varName>>-simpan')}}">
+									<input type="hidden" name="_token" value="{{csrf_token()}}">
+									<input type="hidden" name="tipe" value="{{($data == null) ? 1 : 2}}">
+									<input type="hidden" name="id" value="{{$data->id or ''}}">
+									<<formField>>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endsection
+@section('css')
+<link href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.modal-lg {
+	    max-width: 75%;
+	}
+</style>
+@endsection
+@section('js')
+<!--begin::Page Vendors -->
+<script src="{{asset('assets/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#tambah").click(function(){
+			$("#data").addClass('m--hide');
+			$("#form").removeClass('m--hide');
+		});
+		$('#tabel').DataTable({
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": "{{ route('<<varName>>-data') }}",
+	        "columns": [
+	        	<<tableColumnJavascript>>
+	        ]
+	    });
+	});
+
+	function hapus(kode){
+		mApp.block("#tabel",{
+			overlayColor:"#000000",
+			type:"loader",
+			state:"success",
+			message:"Please wait...",
+			// baseZ: 1000, 
+		});
+		$.ajax({
+	        type: "POST",
+	        url: "{{route('<<varName>>-hapus')}}",
+	        data: {id: kode, _token: "{{ csrf_token() }}"},
+	        success: function (result)
+	        {
+	            $('#tabel').DataTable().ajax.reload();
+	            mApp.unblock("#tabel");
+	        }
+	    });
+	}
+</script>
+@endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hammunima\Crudgen\Commands;
+namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use File;
@@ -14,18 +14,21 @@ class CrudController extends Command
      */
     protected $signature = 'generate:controller 
                             {name : name of controller} 
-                            {--dir= : directory namespace}';
+                            {--dir= : directory namespace}
+                            {--route= : name of route file}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate File Controller...';
+    protected $description = 'Generate File Controller';
 
     protected $directory = '';
 
     protected $viewDir = '';
+
+    protected $routeName = '';
     
     protected $controllerDir = '';
 
@@ -49,7 +52,10 @@ class CrudController extends Command
     public function handle()
     {
         $name = $this->argument('name');
+
         $this->directory = ($this->option('dir')) ? $this->option('dir') : '';
+        $this->routeName = ($this->option('route')) ? $this->option('route') : 'web';
+        
         $this->getControllerDirectory();
         $this->getViewDirectory();
         $this->getDefaultNamespace();
@@ -60,6 +66,7 @@ class CrudController extends Command
             ->replaceFunctionName($stub, $name)
             ->replaceVarName($stub, $name)
             ->replacePathView($stub, $this->viewDir . $name)
+            ->replaceDefaultNamespace($stub, ucfirst($this->directory))
             ->createRoute($name)
             ->createFile(ucfirst($name), $stub);
     }
@@ -126,6 +133,11 @@ class CrudController extends Command
 
     protected function replacePathView(&$stub, $pathView){
         $stub = str_replace('{{pathView}}', $pathView, $stub);
+        return $this;
+    }
+
+    protected function replaceDefaultNamespace(&$stub, $defaultNamespace){
+        $stub = str_replace('{{defaultNamespace}}', $defaultNamespace, $stub);
         return $this;
     }
 }

@@ -1,31 +1,31 @@
 <?php
-namespace App\Http\Controllers\Sarpras;
+namespace App\Http\Controllers\<<defaultNamespace>>;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Datatables;
 use DB;
-use App\Models\{{modelName}};
+use App\Models\<<className>>;
 
 
-class {{modelName}}Controller extends Controller
+class <<className>>Controller extends Controller
 {
-	public function {{modelName}}Link($id = null){
+	public function <<functionName>>Link($id = null){
         if($id == null){
-            $var_{{modelName}} = null;
+            $var_<<varName>> = null;
         }else{
-            $var_{{modelName}} = {{modelName}}::find($id);
+            $var_<<varName>> = <<className>>::find($id);
         }
-        return view({{pathView}}, ['data' => $aa]);
+        return view('<<pathView>>', ['data' => $aa]);
     }
 
-    public function {{modelName}}Data(){
-        $query_{{modelName}} = {{modelName}}::select('*');
+    public function <<functionName>>Data(){
+        $query_<<varName>> = <<className>>::select('*');
 
-        return Datatables::of($query_{{modelName}})
+        return Datatables::of($query_<<varName>>)
                         ->addColumn('menu', function($model) {
-                            $edit = '<a href="' . route("{{modelName}}-link", ['id' => $model->id]) . '"><button type="button" class="btn btn-sm btn-warning">Edit</button></a>';
+                            $edit = '<a href="' . route("<<modelName>>-link", ['id' => $model->id]) . '"><button type="button" class="btn btn-sm btn-warning">Edit</button></a>';
                             $hapus = '<button type="button" onclick="hapus(' . $model->id . ')" class="btn btn-sm btn-danger">Hapus</button>';
                             return $edit . ' ' . $hapus;
                         })
@@ -33,24 +33,24 @@ class {{modelName}}Controller extends Controller
                         ->make(true);
     }
 
-    public function {{modelName}}Simpan(Request $req){
+    public function <<functionName>>Simpan(Request $req){
         if($req->tipe == 1){
-            $var_{{modelName}} = {{modelName}}::create($req->except(['tipe', 'id']));
+            $var_<<varName>> = <<className>>::create($req->except(['tipe', 'id', '_token']));
             $st = 1;
         }else{
-            $var_{{modelName}} = {{modelName}}::find($req->id);
-            if($var_{{modelName}}){
-            	$var_{{modelName}}->update($req->except(['tipe', 'id']));
+            $var_<<varName>> = <<className>>::find($req->id);
+            if($var_<<varName>>){
+            	$var_<<varName>>->update($req->except(['tipe', 'id']));
 	            $st = 1;
             }else{
             	$st = 9;
             }
         }
-        return redirect()->route('{{modelName}}-link')->with('status', $st);
+        return redirect()->route('<<varName>>-link')->with('status', $st);
     }
 
-    public function {{modelName}}Hapus(Request $req){
-        {{modelName}}::find($req->id)->delete();
+    public function <<functionName>>Hapus(Request $req){
+        <<className>>::find($req->id)->delete();
         return response()->json(['hasil' => true]);
     }
 }
