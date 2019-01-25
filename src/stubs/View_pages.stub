@@ -1,4 +1,4 @@
-@extends('layout2')
+@extends('<<layoutName>>')
 @section('title')
 	<<className>> | {{env('APP_NAME')}}
 @endsection

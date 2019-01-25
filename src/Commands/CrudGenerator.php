@@ -33,6 +33,8 @@ class CrudGenerator extends Command
     protected $directory = '';
 
     protected $templateName = '';
+    
+    protected $layoutName = '';
 
     protected $pathOfAsset = '';
 
@@ -76,7 +78,7 @@ class CrudGenerator extends Command
 
             $this->call('generate:controller', ['name' => $name, '--dir' => $this->directory, '--route' => $this->routeName]);
             $this->call('generate:model', ['name' => $name, '--pk' => $this->pk]);
-            $this->call('generate:view', ['name' => $name, '--dir' => $this->directory, '--fields' => $this->fields, '--pk' => $this->pk, '--template' => $this->templateName, '--layout' => $this->layout, '--asset-path' => $this->pathOfAsset]);
+            $this->call('generate:view', ['name' => $name, '--dir' => $this->directory, '--fields' => $this->fields, '--pk' => $this->pk, '--template' => $this->templateName, '--layout' => $this->layoutName, '--asset-path' => $this->pathOfAsset]);
             $this->info('Success...... ');
         }else{
             $this->error('Error......!!!');

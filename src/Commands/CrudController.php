@@ -117,27 +117,27 @@ class CrudController extends Command
     }
 
     protected function replaceClassName(&$stub, $className){
-        $stub = str_replace('{{className}}', $className, $stub);
+        $stub = str_replace('<<className>>', $className, $stub);
         return $this;
     }
 
     protected function replaceFunctionName(&$stub, $functionName){
-        $stub = str_replace('{{functionName}}', $functionName, $stub);
+        $stub = str_replace('<<functionName>>', $functionName, $stub);
         return $this;
     }
     
     protected function replaceVarName(&$stub, $varName){
-        $stub = str_replace('{{varName}}', $varName, $stub);
+        $stub = str_replace('<<varName>>', $varName, $stub);
         return $this;
     }
 
     protected function replacePathView(&$stub, $pathView){
-        $stub = str_replace('{{pathView}}', $pathView, $stub);
+        $stub = str_replace('<<pathView>>', $pathView, $stub);
         return $this;
     }
 
     protected function replaceDefaultNamespace(&$stub, $defaultNamespace){
-        $stub = str_replace('{{defaultNamespace}}', $defaultNamespace, $stub);
+        $stub = str_replace('<<defaultNamespace>>', $defaultNamespace, $stub);
         return $this;
     }
 }

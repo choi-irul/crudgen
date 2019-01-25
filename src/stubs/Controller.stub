@@ -17,7 +17,7 @@ class <<className>>Controller extends Controller
         }else{
             $var_<<varName>> = <<className>>::find($id);
         }
-        return view('<<pathView>>', ['data' => $aa]);
+        return view('<<pathView>>', ['data' => $var_<<varName>>]);
     }
 
     public function <<functionName>>Data(){

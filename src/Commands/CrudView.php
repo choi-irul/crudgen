@@ -143,6 +143,7 @@ class CrudView extends Command
                         ->replaceTableColumn($stub, $this->tableColumn)
                         ->replaceTableColumnJavascript($stub, $this->tableColumnJavascript)
                         ->replaceFormField($stub, $this->formFieldsHtml)
+                        ->replaceLayoutName($stub, $this->layoutName)
                         ->replacePathOfAsset($stub, $this->pathOfAsset)
                         ->createFile($name, $stub);
 
@@ -165,7 +166,7 @@ class CrudView extends Command
         if($this->templateName == ''){
             $tmp = '';
         }else{
-            $tmp = $this->templateName . '/';
+            $tmp = '/' . $this->templateName;
         }
         return file_get_contents(resource_path("stubs/views" . $tmp . "/$type.stub"));
     }
@@ -217,6 +218,11 @@ class CrudView extends Command
 
     protected function replacePathOfAsset(&$stub, $path){
         $stub = str_replace('<<pathOfAsset>>', $path, $stub);
+        return $this;
+    }
+
+    protected function replaceLayoutName(&$stub, $name){
+        $stub = str_replace('<<layoutName>>', $name, $stub);
         return $this;
     }
 

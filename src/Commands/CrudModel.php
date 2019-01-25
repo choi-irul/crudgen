@@ -75,17 +75,17 @@ class CrudModel extends Command
     }
     
     protected function replaceClassName(&$stub, $className){
-        $stub = str_replace('{{className}}', $className, $stub);
+        $stub = str_replace('<<className>>', $className, $stub);
         return $this;
     }
 
     protected function replacePrimaryKey(&$stub, $primaryKey){
-        $stub = str_replace('{{primaryKey}}', $primaryKey, $stub);
+        $stub = str_replace('<<primaryKey>>', $primaryKey, $stub);
         return $this;
     }
     
     protected function replaceTableName(&$stub, $tableName){
-        $stub = str_replace('{{tableName}}', $tableName, $stub);
+        $stub = str_replace('<<tableName>>', $tableName, $stub);
         return $this;
     }
 }
