@@ -74,8 +74,8 @@ class CrudGenerator extends Command
             $this->fields = $this->option('fields');
             $this->pk = $this->option('pk');
 
-            $this->call('crud:controller', ['name' => $name, '--dir' => $this->directory, '--route' => $this->routeName]);
-            $this->call('crud:model', ['name' => $name, '--pk' => $this->pk]);
+            $this->call('generate:controller', ['name' => $name, '--dir' => $this->directory, '--route' => $this->routeName]);
+            $this->call('generate:model', ['name' => $name, '--pk' => $this->pk]);
             $this->call('generate:view', ['name' => $name, '--dir' => $this->directory, '--fields' => $this->fields, '--pk' => $this->pk, '--template' => $this->templateName, '--layout' => $this->layout, '--asset-path' => $this->pathOfAsset]);
             $this->info('Success...... ');
         }else{
