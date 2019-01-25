@@ -1,6 +1,6 @@
 <?php
 
-namespace Hammunima\Terbilang\Commands;
+namespace Hammunima\Crudgen\Commands;
 
 use Illuminate\Console\Command;
 
@@ -17,7 +17,8 @@ class CrudGenerator extends Command
                             {--pk= : column of primary key}
                             {--fields= : name of fields}
                             {--template= : name of template}
-                            {--dir= : directory of file}
+                            {--layout= : define name of layout}
+                            {--asset-path= : define path of asset}
                             {--route= : name of route file}';
 
     /**
@@ -32,6 +33,8 @@ class CrudGenerator extends Command
     protected $directory = '';
 
     protected $templateName = '';
+
+    protected $pathOfAsset = '';
 
     protected $optionChecked = 'true';
 
@@ -62,6 +65,9 @@ class CrudGenerator extends Command
         $this->directory = ($this->option('dir')) ? $this->option('dir') : '';
         $this->templateName = ($this->option('template')) ? $this->option('template') : '';
         $this->directory = ($this->option('dir')) ? $this->option('dir') : '';
+        $this->layoutName = ($this->option('layout')) ? $this->option('layout') : '';
+        $this->pathOfAsset = ($this->option('asset-path')) ? $this->option('asset-path') : '';
+
         $this->checkOption('pk');
         $this->checkOption('fields');
         if($this->optionChecked){
@@ -70,7 +76,7 @@ class CrudGenerator extends Command
 
             $this->call('crud:controller', ['name' => $name, '--dir' => $this->directory, '--route' => $this->routeName]);
             $this->call('crud:model', ['name' => $name, '--pk' => $this->pk]);
-            $this->call('crud:view', ['name' => $name, '--dir' => $this->directory, '--fields' => $this->fields, '--pk' => $this->pk, '--template' => $this->templateName]);
+            $this->call('generate:view', ['name' => $name, '--dir' => $this->directory, '--fields' => $this->fields, '--pk' => $this->pk, '--template' => $this->templateName, '--layout' => $this->layout, '--asset-path' => $this->pathOfAsset]);
             $this->info('Success...... ');
         }else{
             $this->error('Error......!!!');

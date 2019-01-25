@@ -1,6 +1,6 @@
 <?php
 
-namespace Hammunima\Terbilang\Commands;
+namespace Hammunima\Crudgen\Commands;
 
 use Illuminate\Console\Command;
 use File;
@@ -17,6 +17,8 @@ class CrudView extends Command
                             {--fields= : name of fields}
                             {--pk= : name of primaryKey}
                             {--template= : name of template}
+                            {--layout= : define name of layout}
+                            {--asset-path= : define path of asset}
                             {--dir= : directory of file}';
 
     /**
@@ -37,6 +39,8 @@ class CrudView extends Command
     protected $templateName = '';
 
     protected $formFields = [];
+
+    protected $pathOfAsset = '';
 
     protected $formFieldsHtml = '';
 
@@ -96,6 +100,8 @@ class CrudView extends Command
         $name = $this->argument('name');
         $this->directory = ($this->option('dir')) ? $this->option('dir') . '/' : '';
         $this->templateName = ($this->option('template')) ? $this->option('template') : '';
+        $this->layoutName = ($this->option('layout')) ? $this->option('layout') : '';
+        $this->pathOfAsset = ($this->option('asset-path')) ? $this->option('asset-path') . '/' : '';
         
         $this->checkOption('pk');
         $this->checkOption('fields');
@@ -121,11 +127,14 @@ class CrudView extends Command
                 
                 $this->tableColumn .= $this->createTableColumn($item);
             }
+            //create column menu
+            $this->tableColumn .= $this->createTableColumnMenu();
 
             //create button save
-            $this->formFieldsHtml = $this->createButtonSave();
+            $this->formFieldsHtml .= $this->createButtonSave($name);
 
-            $this->tableColumnJavascript .= "{data: 'menu', orderable: false, searchable: false}";
+            //create column menu in JS
+            $this->tableColumnJavascript .= $this->createTableColumnMenuJs();
 
             $stub = $this->getStub('View');
         
@@ -134,6 +143,7 @@ class CrudView extends Command
                         ->replaceTableColumn($stub, $this->tableColumn)
                         ->replaceTableColumnJavascript($stub, $this->tableColumnJavascript)
                         ->replaceFormField($stub, $this->formFieldsHtml)
+                        ->replacePathOfAsset($stub, $this->pathOfAsset)
                         ->createFile($name, $stub);
 
             $this->Info('View ' . ucfirst($name) . ' has been successfully added');
@@ -205,6 +215,11 @@ class CrudView extends Command
         return $this;
     }
 
+    protected function replacePathOfAsset(&$stub, $path){
+        $stub = str_replace('<<pathOfAsset>>', $path, $stub);
+        return $this;
+    }
+
     protected function wrapField($item, $field)
     {
         if($this->templateName == ''){
@@ -247,9 +262,21 @@ class CrudView extends Command
         return $fields;
     }
 
+    protected function createTableColumnMenuJs($item)
+    {
+        $fields = "{data: 'menu', orderable: false, searchable: false}";
+        return $fields;
+    }
+
     protected function createTableColumn($item)
     {
         $fields = "<td>" . ucfirst($item['name']) . "</td>";
+        return $fields;
+    }
+
+    protected function createTableColumnMenu()
+    {
+        $fields = "<td>Menu</td>";
         return $fields;
     }
 
@@ -340,7 +367,7 @@ class CrudView extends Command
         );
     }
 
-    protected function createButtonSave()
+    protected function createButtonSave($name)
     {
         if($this->templateName == ''){
             $tmp = '';
@@ -348,6 +375,7 @@ class CrudView extends Command
             $tmp = '_' . $this->templateName;
         }
         $inputForm = $this->getFormStub('button-save' . $tmp . '.blade');
+        $inputForm = str_replace('<<varName>>', $name, $inputForm);
         return $inputForm;
     }
 }

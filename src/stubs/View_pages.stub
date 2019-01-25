@@ -1,6 +1,6 @@
 @extends('layout2')
 @section('title')
-	Gedung | {{env('APP_NAME')}}
+	<<className>> | {{env('APP_NAME')}}
 @endsection
 @section('content')
 <div class="content ">
@@ -60,16 +60,48 @@
 </div>
 @endsection
 @section('css')
-<link href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('<<pathOfAsset>>assets/plugins/jquery-datatable/media/css/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('<<pathOfAsset>>assets/plugins/jquery-datatable/extensions/FixedColumns/css/dataTables.fixedColumns.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('<<pathOfAsset>>assets/plugins/datatables-responsive/css/datatables.responsive.css')}}" rel="stylesheet" type="text/css" media="screen" />
+
+
 <style type="text/css">
 	.modal-lg {
 	    max-width: 75%;
 	}
+
+	.dataTables_wrapper .row > div {
+		display: table !important;
+	}
+
+	.table tbody tr td{
+		/* border-top: 1px solid rgba(230, 230, 230, 0.7); */
+		border: 1px solid rgba(230, 230, 230, 0.7);
+		padding: 10px;
+	}
+
+	.table td, .table th{
+		border: 1px solid rgba(230, 230, 230, 0.7);
+	}
+
+	.dataTables_wrapper .dataTables_info{
+		padding: 0;
+	}
 </style>
+
 @endsection
 @section('js')
-<!--begin::Page Vendors -->
-<script src="{{asset('assets/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
+<script src="{{asset('<<pathOfAsset>>assets/plugins/jquery-datatable/media/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('<<pathOfAsset>>assets/plugins/jquery-datatable/extensions/TableTools/js/dataTables.tableTools.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('<<pathOfAsset>>assets/plugins/jquery-datatable/media/js/dataTables.bootstrap.js')}}" type="text/javascript"></script>
+<script src="{{asset('<<pathOfAsset>>assets/plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js')}}" type="text/javascript"></script>
+<script src="{{asset('<<pathOfAsset>>assets/plugins/datatables-responsive/js/datatables.responsive.js')}}" type="text/javascript" ></script>
+<script src="{{asset('<<pathOfAsset>>assets/plugins/datatables-responsive/js/lodash.min.js')}}" type="text/javascript" ></script>
+
+<!-- BEGIN PAGE LEVEL JS -->
+<script src="{{asset('<<pathOfAsset>>assets/js/datatables.js')}}" type="text/javascript"></script>
+<script src="{{asset('<<pathOfAsset>>assets/js/scripts.js')}}" type="text/javascript"></script>
+<!-- END PAGE LEVEL JS -->
 <script type="text/javascript">
 
 	$(document).ready(function () {

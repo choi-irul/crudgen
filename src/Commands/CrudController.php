@@ -1,6 +1,6 @@
 <?php
 
-namespace Hammunima\Terbilang\Commands;
+namespace Hammunima\Crudgen\Commands;
 
 use Illuminate\Console\Command;
 use File;

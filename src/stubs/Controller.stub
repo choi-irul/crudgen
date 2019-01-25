@@ -4,7 +4,7 @@ namespace App\Http\Controllers\<<defaultNamespace>>;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Datatables;
+use DataTables;
 use DB;
 use App\Models\<<className>>;
 
@@ -23,9 +23,9 @@ class <<className>>Controller extends Controller
     public function <<functionName>>Data(){
         $query_<<varName>> = <<className>>::select('*');
 
-        return Datatables::of($query_<<varName>>)
+        return DataTables::of($query_<<varName>>)
                         ->addColumn('menu', function($model) {
-                            $edit = '<a href="' . route("<<modelName>>-link", ['id' => $model->id]) . '"><button type="button" class="btn btn-sm btn-warning">Edit</button></a>';
+                            $edit = '<a href="' . route("<<varName>>-link", ['id' => $model->id]) . '"><button type="button" class="btn btn-sm btn-warning">Edit</button></a>';
                             $hapus = '<button type="button" onclick="hapus(' . $model->id . ')" class="btn btn-sm btn-danger">Hapus</button>';
                             return $edit . ' ' . $hapus;
                         })

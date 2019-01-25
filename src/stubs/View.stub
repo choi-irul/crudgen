@@ -1,6 +1,6 @@
 @extends('layout2')
 @section('title')
-	Gedung | {{env('APP_NAME')}}
+	<<className>> | {{env('APP_NAME')}}
 @endsection
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
