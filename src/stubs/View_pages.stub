@@ -14,14 +14,14 @@
         <!-- START card -->
         <div class="row">
 			<div class="col-12">
-				<div class="card card-default {{($data == null) ? '' : 'm--hide'}}" id="data">
+				<div class="card card-default {{($data == null) ? '' : 'hidden'}}" id="data">
 		            <div class="card-header separator">
 		           	    <div class="card-title">
 		           	    	Master <<className>>
 		                </div>
 		            </div>
 		            <div class="row card-body">
-		            	<button type="button" id="tambah" class="btn btn-complete btn-cons">Tambah</button>
+		            	<button type="button" id="tambah" class="btn btn-complete btn-cons m-t-10 m-l-10 m-b-10">Tambah</button>
 						<br><br>
 		                <div class="table-responsive sm-m-b-15">
 		                	<table class="table table-striped no-footer" id="tabel">
@@ -38,13 +38,13 @@
 		        </div>
 			</div>
 			<div class="col-12">
-				<div class="card card-default {{($data == null) ? 'm--hide' : ''}}" id="form">
+				<div class="card card-default {{($data == null) ? 'hidden' : ''}}" id="form">
 		            <div class="card-header separator">
 		           	    <div class="card-title">
 		           	    	Form <<className>>
 		                </div>
 		            </div>
-		            <div class="row card-body">
+		            <div class="card-body">
 		            	<form id="form-work" class="form-horizontal" role="form" method="post" action="{{route('<<varName>>-simpan')}}">
                       		<input type="hidden" name="_token" value="{{csrf_token()}}">
 							<input type="hidden" name="tipe" value="{{($data == null) ? 1 : 2}}">
