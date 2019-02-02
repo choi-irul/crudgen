@@ -30,6 +30,9 @@ class CrudModel extends Command
     protected $controllerDir = '';
 
     protected $defaultNamespace = '';
+
+    protected $formFields = [];
+
     
     /**
      * Create a new command instance.
@@ -52,9 +55,24 @@ class CrudModel extends Command
         $primaryKey = $this->option('pk');
 
         $stub = $this->getStub('Model');
+
+        $fields = $this->option('fields');
+        $fieldsArray = explode(';', $fields);
+
+        $arrayfield = [];
+        $x = 0;
+        foreach ($fieldsArray as $item) {
+            $itemArray = explode('>>', $item);
+            $arrayfield[] = trim($itemArray[0]);
+            $x++;
+        }
+
+        $commaSeparetedString = implode("', '", $arrayfield);
+        $fillable = "['" . $commaSeparetedString . "']";
         
         $this->replaceClassName($stub, ucfirst($name))
                                 ->replaceTableName($stub, $name)
+                                ->replaceFillable($stub, $fillable)
                                 ->replacePrimaryKey($stub, $primaryKey)
                                 ->createFile(ucfirst($name), $stub);
 
@@ -86,6 +104,11 @@ class CrudModel extends Command
     
     protected function replaceTableName(&$stub, $tableName){
         $stub = str_replace('<<tableName>>', $tableName, $stub);
+        return $this;
+    }
+
+    protected function replaceFillable(&$stub, $fillable){
+        $stub = str_replace('<<fillable>>', $fillable, $stub);
         return $this;
     }
 }

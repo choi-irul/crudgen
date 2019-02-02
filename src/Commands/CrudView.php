@@ -268,7 +268,7 @@ class CrudView extends Command
         return $fields;
     }
 
-    protected function createTableColumnMenuJs($item)
+    protected function createTableColumnMenuJs()
     {
         $fields = "{data: 'menu', orderable: false, searchable: false}";
         return $fields;

@@ -1,7 +1,7 @@
 <div class="form-group m-form__group row">
 	<label class="col-md-2 control-label">&nbsp;</label>
 	<div class="col-md-6">
-		<button type="submit" class="btn btn-success btn-cons">Simpan</button>
-		<a href="{{route('<<varName>>-link')}}"><button type="button" id="kembali" class="btn btn-default btn-cons">Kembali</button></a>
+		<button type="submit" class="btn btn-success btn-cons">Save</button>
+		<a href="{{route('<<varName>>-link')}}"><button type="button" id="kembali" class="btn btn-default btn-cons">Back</button></a>
 	</div>
 </div>
