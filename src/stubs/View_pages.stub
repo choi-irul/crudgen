@@ -64,20 +64,19 @@
 <link href="{{asset('<<pathOfAsset>>assets/plugins/jquery-datatable/extensions/FixedColumns/css/dataTables.fixedColumns.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('<<pathOfAsset>>assets/plugins/datatables-responsive/css/datatables.responsive.css')}}" rel="stylesheet" type="text/css" media="screen" />
 
-
 <style type="text/css">
 	.modal-lg {
-	    max-width: 75%;
+    	max-width: 75%;
 	}
 
 	.dataTables_wrapper .row > div {
-		display: table !important;
+	   display: table !important;
 	}
 
 	.table tbody tr td{
-		/* border-top: 1px solid rgba(230, 230, 230, 0.7); */
-		border: 1px solid rgba(230, 230, 230, 0.7);
-		padding: 10px;
+	    /* border-top: 1px solid rgba(230, 230, 230, 0.7); */
+	   	border: 1px solid rgba(230, 230, 230, 0.7);
+	  	padding: 10px;
 	}
 
 	.table td, .table th{
@@ -87,6 +86,16 @@
 	.dataTables_wrapper .dataTables_info{
 		padding: 0;
 	}
+    #tabel_wrapper{
+        padding-left: 10px !important;
+    }
+
+    .alert {
+        margin-bottom: -20px;
+        margin-left: 15px;
+        margin-right: 20px;
+        margin-top: 5px;
+    }
 </style>
 
 @endsection
@@ -120,13 +129,7 @@
 	});
 
 	function hapus(kode){
-		mApp.block("#tabel",{
-			overlayColor:"#000000",
-			type:"loader",
-			state:"success",
-			message:"Please wait...",
-			// baseZ: 1000, 
-		});
+		
 		$.ajax({
 	        type: "POST",
 	        url: "{{route('<<varName>>-hapus')}}",
@@ -134,7 +137,6 @@
 	        success: function (result)
 	        {
 	            $('#tabel').DataTable().ajax.reload();
-	            mApp.unblock("#tabel");
 	        }
 	    });
 	}

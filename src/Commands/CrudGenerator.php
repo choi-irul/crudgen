@@ -11,6 +11,11 @@ class CrudGenerator extends Command
      *
      * @var string
      */
+    /*
+        Command:
+        php artisan generate:crud commodities --dir=master --pk=id --template=pages --layout="backend/layout/main" --asset-path="backend" --route="ChoiRoutes" --fields="code>>string;comodity>>string"
+    */
+
     protected $signature = 'generate:crud 
                             {name : name of controller} 
                             {--dir= : directory namespace}

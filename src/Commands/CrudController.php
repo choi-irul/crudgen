@@ -76,7 +76,7 @@ class CrudController extends Command
     }
 
     protected function createRoute($name){
-        File::append(base_path('routes/web.php'), "Route::get('" . $name . "/{id?}', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Link', 'as' => '{$name}-link']);
+        File::append(base_path('routes/'.$this->routeName.'.php'), "Route::get('" . $name . "/{id?}', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Link', 'as' => '{$name}-link']);
             Route::get('" . $name . "-data', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Data', 'as' => '{$name}-data']);
             Route::post('" . $name . "-simpan', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Simpan', 'as' => '{$name}-simpan']);
             Route::post('" . $name . "-hapus', ['uses' => '{$this->defaultNamespace}{$name}Controller@{$name}Hapus', 'as' => '{$name}-hapus']);

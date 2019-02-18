@@ -14,6 +14,7 @@ class CrudModel extends Command
      */
     protected $signature = 'generate:model 
                             {name : name of model}
+                            {--fields= : name of fields}
                             {--pk= : column of primary key}';
 
     /**
